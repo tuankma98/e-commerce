@@ -1,0 +1,36 @@
+$font: "Times New Roman", sans-serif;
+$font-corinthia: "Corinthia", cursive;
+$font-lobster: "Lobster", cursive;
+
+$primary-color: #818181;
+$secondary-color: #ffffff;
+$orange-color: #e6ae48;
+$gray-color: #d6d6d6;
+$twitter-color: #00a7e7;
+$linkedin-color: #0077b5;
+$bg-twitter: #fcfcfc;
+$title-color: #000000;
+$heading-color: #303030;
+$third-color: #494949;
+$address-color: #24c5d9;
+$border-color: #fefefe;
+$bg-header: rgba(250, 250, 250, 0.1);
+$bg-overplay: rgba(0, 0, 0, 0.2);
+$bg-green: #62af26;
+$bg-red: #ed301c;
+$bg-disabled: #fafafa;
+
+$breakpoints: (
+  "small": 599px,
+  "mobile": 739px,
+  "tablet": 1023px,
+  "tablet-pro": 1365px,
+) !default;
+
+$z-negative: -1;
+$z-elevate: 1;
+$z-sticky: 100;
+$z-drawer: 200;
+$z-dropdown: 400;
+$z-modal: 500;
+$z-popover: 500;

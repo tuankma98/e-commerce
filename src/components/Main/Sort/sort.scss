@@ -1,0 +1,18 @@
+@import "../../../assets/styles/mixin.scss";
+
+.sort {
+  margin: 1.5rem 1.5rem 0;
+
+  .sort-by {
+    @include flex($align: center, $justify: flex-end, $gap: 1rem);
+
+    label {
+      font-size: 1.1rem;
+    }
+
+    select {
+      outline: black;
+      font-weight: 400;
+    }
+  }
+}
