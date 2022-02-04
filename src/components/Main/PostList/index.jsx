@@ -26,6 +26,7 @@ function PostList(props) {
               <p className="content-top">{post.name}</p>
               <div className="content-bottom">
                 <ReactStars
+                  classNames={'starts-item'}
                   count={6}
                   value={post.rating}
                   size={14}

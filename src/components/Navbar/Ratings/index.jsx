@@ -10,30 +10,70 @@ function Ratings(props) {
   //render
   function renderRatings(data) {
     let ratings = []
-    let valueRatings= 1
+    let obj = {}
+    let star = {
+      star1: [],
+      star2: [],
+      star3: [],
+      star4: [],
+      star5: [],
+      star6: [],
+    }
+
     data.forEach(item => {
-      if (ratings.indexOf(item.rating) === -1) {
-        ratings.push(item.rating);
-        valueRatings++
-      }else {
-        valueRatings++
+      ratings.push(item.rating)
+    })
+
+    ratings.forEach(item => {
+      if(item === 1) {
+        star.star1.push(item)
+        obj[item] = {
+          star: star.star1.length
+        }
+      } else if (item === 2) {
+        star.star2.push(item)
+        obj[item] = {
+          star: star.star2.length
+        }
+      } else if(item === 3) {
+        star.star3.push(item)
+        obj[item] = {
+          star: star.star3.length
+        }
+      } else if(item === 4) {
+        star.star4.push(item)
+        obj[item] = {
+          star: star.star4.length
+        }
+      } else if(item === 5) {
+        star.star5.push(item)
+        obj[item] = {
+          star: star.star5.length
+        }
+      } else if(item === 6) {
+        star.star6.push(item)
+        obj[item] = {
+          star: star.star6.length
+        }
       }
     })
-    ratings.sort((a,b) => b-a)
- 
-    return ratings.map((item, index) => {
+
+    let objKeys = Object.keys(obj)
+    objKeys.sort((a,b) => b-a)
+    
+    return objKeys.map((item, index) => {
       return (
         <div className='rating-stars' key={index} onClick={() => handleClickStars(item)} >
           <ReactStars
             classNames={'starts-item'}
             count={6}
-            value={item}
+            value={parseInt(item)}
             size={14}
           />
           <p 
           className={selected === item ? 'active' : ''}
           >
-            &amp; Up {valueRatings}
+            &amp; Up {obj[item].star}
           </p>
         </div>
       )

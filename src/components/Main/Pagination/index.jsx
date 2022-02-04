@@ -19,10 +19,9 @@ function Pagination(props) {
   
   function handlePageChange({selected}) {
     let numbers = selected + 1
-    if (onPageChanges) {
-      onPageChanges(numbers)
-    }
-
+      if (onPageChanges) {
+        onPageChanges(numbers)
+      }
   }
 
   return (

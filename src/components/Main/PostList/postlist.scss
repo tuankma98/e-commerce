@@ -42,6 +42,10 @@
         margin: auto 0 1rem;
         font-weight: 700;
       }
+
+      .starts-item {
+        pointer-events: none;
+      }
     }
   }
 }

@@ -18,42 +18,9 @@
 }
 
 .facet-category-title {
-  font-size: 1.4rem;
+  margin: 1rem 0;
   color: #888;
-  padding: 8px 0;
 }
-
-.categories-1 {
-  @include flex($dir: column, $gap: 5px);
-  width: 100%;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  p {
-    transition: all 0.25s linear;
-    &:hover {
-      color: #b32500;
-      cursor: pointer;
-    }
-  }
-
-  .categories-2 {
-    @include flex($dir: column, $gap: 5px);
-    margin: 5px 0 0 10px;
-    display: none;
-
-    .categories-item-2 {
-      transition: all 0.25s linear;
-      &:hover {
-        color: #b32500;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-//--------------------
 
 .facet-title {
   margin-top: 5px;
@@ -69,6 +36,12 @@
 
   .category-checkbox {
     @include flex($align: center, $gap: 5px);
+
+    label {
+      &:hover {
+        color: #b32500;
+      }
+    }
   }
 }
 
@@ -109,4 +82,62 @@
 .active {
   color: black;
   font-weight: 700;
+}
+
+.active1 {
+  color: black;
+  font-weight: 700;
+}
+
+//---------------------------------
+
+.category {
+  &_list {
+    @include flex($dir: column, $gap: 5px);
+  }
+
+  &-item > p {
+    span:last-child {
+      &:hover {
+        color: #b32500;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &_link {
+    color: #000000;
+
+    &:hover {
+      color: #b32500;
+    }
+  }
+
+  &_sub-list {
+    margin-left: 1.4rem;
+    margin-top: 1rem;
+    font-size: 1.3rem;
+  }
+
+  &_sub-item {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 5px;
+    }
+
+    & > p {
+      span:last-child {
+        &:hover {
+          color: #b32500;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &-icon {
+    margin-right: 5px;
+    font-size: 1.8rem;
+  }
 }

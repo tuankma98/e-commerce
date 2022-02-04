@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Categories from './Categories'
+import Category from './Category'
 import Type from './Type'
 import Brand from './Brand'
 import Ratings from './Ratings'
@@ -12,6 +12,7 @@ import './navbar.scss'
 function Navbar(props) {
   const {filter, setFilters} = props
   const [data, setData] = useState([])
+  const [isClear, setIsClear] = useState(false)
 
   //api
   useEffect(() => {
@@ -26,7 +27,39 @@ function Navbar(props) {
       }
     }
     fetchPostListCategory()
-  }, [])
+  }, []) 
+
+  // clear all filter
+  useEffect(() => {
+    const filterValueArr = [
+      filter.name_like, 
+      filter.categories_like, 
+      filter.price_range_like, 
+      filter.type_like, 
+      filter.brand_like, 
+      filter.rating_like
+    ]
+    const flag = filterValueArr.some(value => {
+      return value !== ''
+    })
+    setIsClear(flag)
+  }, [filter])
+
+    // Clear
+    function handleClearFilter() {
+      setFilters({
+        ...filter,
+        name_like: '',
+        categories_like:'',
+        price_range_like:'',
+        type_like:'',
+        brand_like:'',
+        rating_like:'',
+      })
+      setIsClear(!isClear)
+      console.log(isClear);
+    }
+
 
   // handle checkbox brand
   function handleBrand(brandChecked) {
@@ -60,13 +93,26 @@ function Navbar(props) {
     })
   }
 
+  // handle category
+  function handleCategory(categoryCheck) {
+    setFilters({
+      ...filter,
+      categories_like: categoryCheck,
+    })
+  }
+
   return (
     <aside className="sidebar">
-      <div className="clear-all">Clear all filters</div>
-      <Categories
+       {
+          isClear && 
+          <button onClick={handleClearFilter}>Clear All Filter</button>
+      }
+      <Category
         data={data}
+        onClick ={handleCategory}
+        setIsClear= {setIsClear}
       />
-      <div className="facet-wrapper">
+      <section className="facet-wrapper">
         <h3 className='facet-category-title'>Refine by</h3>
         <Type 
           data={data}
@@ -84,7 +130,7 @@ function Navbar(props) {
           data={data}
           handlePrices={handlePrices}
         />
-      </div>
+      </section>
     </aside>
   )
 }

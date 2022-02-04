@@ -12,11 +12,17 @@ function App() {
   const [pagination, setPagination] = useState({
     _limit: 16,
     _page: 1,
-    // _totalRows: 1,
+    _totalRows: 1,
   })
   const [filters, setFilters] = useState({
     _limit: 16,
     _page: 1,
+    name_like: '',
+    categories_like: '',
+    price_range_like: '',
+    type_like: '',
+    brand_like: '',
+    rating_like: '',
   })
 
   // api
@@ -44,6 +50,7 @@ function App() {
   function handleFiltersChange(newFilters) {
     setFilters({
       ...filters,
+      _page: 1,
       name_like: newFilters.searchTerm,
     })
   }
