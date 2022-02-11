@@ -1,18 +1,11 @@
 import React from 'react'
-import './header.scss'
-import PropTypes from 'prop-types'
 import Filter from './Filters'
+import './header.scss'
 
 Header.propTypes = {
-  onSubmit: PropTypes.func,
-}
-
-Header.defaultProps = {
-  onSubmit: null,
 }
 
 function Header(props) {
-  const { onSubmit } = props
   return (
     <header className="header">
       <a
@@ -27,7 +20,7 @@ function Header(props) {
       <a href="/" className="logo">
         amazing
       </a>
-      <Filter onSubmitFilter={onSubmit} />
+      <Filter />
     </header>
   )
 }

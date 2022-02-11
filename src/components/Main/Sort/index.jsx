@@ -1,24 +1,29 @@
 import React from 'react'
+import { actions, useStore } from '../../../store'
 import './sort.scss'
-import PropTypes from 'prop-types'
-
-Sort.propTypes = {
-  onSortChanges: PropTypes.func,
-}
-
-Sort.defaultProps = {
-  onSortChanges: null,
-}
 
 function Sort(props) {
-  const { onSortChanges } = props
+  const [ state, dispatch ] = useStore()
+  const { filter } = state
 
   function handleSortChange(e) {
     const value = e.target.value
-    if (onSortChanges) {
-      onSortChanges(value)
+
+    if (value === 'featured') {
+      dispatch(actions.setFilter({
+        ...filter,
+        _sort: '',
+        _order: '',
+      }))
+    } else {
+      dispatch(actions.setFilter({
+        ...filter,
+        _sort: 'price',
+        _order: value,
+      }))
     }
   }
+
   return (
     <section className="sort">
       <div className="sort-by">

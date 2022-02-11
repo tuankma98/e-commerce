@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-
+import { useStore, actions } from '../../../store'
 
 function Types(props) {
-  const {data, handleTypes} = props
+  const {data} = props
+  const [ state, dispatch ] = useStore()
+  const { filter } = state
   const [Checked, setChecked] = useState([])
 
   // render
@@ -43,9 +45,15 @@ function Types(props) {
     setChecked(newChecked)
 
     if (e.target.checked) {
-    handleTypes(newChecked)
+      dispatch(actions.setFilter({
+        ...filter,
+        type_like: newChecked
+      }))
     } else {
-      handleTypes(newChecked)
+      dispatch(actions.setFilter({
+        ...filter,
+        type_like: newChecked
+      }))
     }
   }
 

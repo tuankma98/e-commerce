@@ -1,23 +1,20 @@
+import ReactStars from "react-rating-stars-component"
 import React from 'react'
 import './postlist.scss'
-import PropTypes from 'prop-types'
-import ReactStars from 'react-rating-stars-component'
+import { useStore } from '../../../store'
 
-PostList.propTypes = {
-  posts: PropTypes.array,
-}
 
-PostList.defaultProps = {
-  posts: [],
-}
+PostList.propTypes = {}
+
 
 function PostList(props) {
-  const { posts } = props
+  const [ state ] = useStore()
+  const { postList } = state
 
   return (
     <div>
       <ul className="post-list">
-        {posts.map((post) => (
+        {postList.map((post) => (
           <li className="post-list-item" key={post.objectID}>
             <div className="list-item-image">
               <img src={post.image} alt="img" />

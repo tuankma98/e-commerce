@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useStore, actions } from '../../../store'
 
 function Prices(props) {
-  const {data, handlePrices} = props
-  const [selected, setSelected] = useState('')
+  const { data } = props
+  const [ state, dispatch ] = useStore()
+  const { filter, selected_prices } = state
   const [Checked, setChecked] = useState([])
 
 
@@ -21,7 +23,7 @@ function Prices(props) {
         <li 
           key={index}
           onClick={() => handleClickPrices(item)}
-          className={selected === item ? 'active' : ''}
+          className={selected_prices === item ? 'active' : ''}
         >
           ${item}
         </li>
@@ -32,18 +34,23 @@ function Prices(props) {
   //
   function handleClickPrices(item) {
     const currentIndex = Checked.indexOf(item)
-    const newChecked = []
+    let newChecked = []
 
     if (currentIndex === -1) {
       newChecked.push(item);
-      setSelected(item)
+      dispatch(actions.setSelectedPrices(item))
     }else {
       newChecked.splice(currentIndex, 1)
-      setSelected('')
+      dispatch(actions.setSelectedPrices(''))
+      newChecked = ''
     }
 
     setChecked(newChecked)
-    handlePrices(newChecked)
+
+    dispatch(actions.setFilter({
+      ...filter,
+      price_range_like: newChecked
+    }))
   }
 
   return (

@@ -1,24 +1,16 @@
 import React, { useRef, useState } from 'react'
-import PropTypes from 'prop-types'
+import { actions, useStore } from '../../../store'
 import './filter.scss'
 
-Filter.propTypes = {
-  onSubmitFilter: PropTypes.func,
-}
-
-Filter.defaultProps = {
-  onSubmitFilter: null,
-}
-
 function Filter(props) {
-  const { onSubmitFilter } = props
+  const [ state, dispatch ] = useStore()
+  const { filter } = state
   const [searchTerm, setSearchTerm] = useState('')
   const typingTimeoutRef = useRef(null)
 
   function handleSearchTermChange(e) {
     const value = e.target.value
     setSearchTerm(value)
-    if (!onSubmitFilter) return
 
     if (typingTimeoutRef.current) {
       clearTimeout(typingTimeoutRef.current)
@@ -28,7 +20,11 @@ function Filter(props) {
       const formValues = {
         searchTerm: value,
       }
-      onSubmitFilter(formValues)
+
+      dispatch(actions.setFilter({
+        ...filter,
+        name_like: formValues.searchTerm,
+      }))
     }, 500)
   }
 

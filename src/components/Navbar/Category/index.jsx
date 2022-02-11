@@ -1,12 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
+import { useStore, actions } from '../../../store'
 
 function Category(props) {
-  const {data, onClick, setIsClear} = props
-  const [selectedCategory, setSelectedCategory] = useState("")
-  const [selected, setSelected] = useState('')
-  const [selected1, setSelected1] = useState('')
-  const [Checked, setChecked] = useState([])
-  const [Checked1, setChecked1] = useState([])
+  const { data } = props
+  const [ state, dispatch ] = useStore()
+  const { filter, checked, checked1, selected, selected1, selected_category } = state
 
   // render
   const renderCategory = (data) => {
@@ -63,7 +61,7 @@ function Category(props) {
           {categoryObj[item].lv2 && (
             <ul
               className="category_sub-list"
-              style={{ display: selectedCategory === item ? "block" : "none" }}
+              style={{ display: selected_category === item ? "block" : "none" }}
             >
               {categoryObj[item].lv2.map((subItem, subIndex) => {
                 return (
@@ -94,39 +92,52 @@ function Category(props) {
 
   // category lv1
   function handleCategory(item) {
-    const currentIndex = Checked.indexOf(item)
-    const newChecked = []
+    const currentIndex = checked.indexOf(item)
+    let newChecked = []
 
     if (currentIndex === -1) {
       newChecked.push(item)
-      setSelected(item)
-      setSelectedCategory(item)
+      dispatch(actions.setSelected(item))
+      dispatch(actions.setSelectedCategory(item))
     } else {
       newChecked.splice(currentIndex, 1)
-      setSelectedCategory(newChecked)
-      setSelected('')
-      setSelected1('')
-      setIsClear(false)
+      dispatch(actions.setSelectedCategory(newChecked))
+      dispatch(actions.setSelected(''))
+      dispatch(actions.setSelected1(''))
+      newChecked =''
     }
-  
-    onClick(newChecked)
-    setChecked(newChecked)
+
+    //
+    dispatch(actions.setFilter({
+      ...filter,
+      categories_like: newChecked,
+    }))
+
+    //
+    dispatch(actions.setChecked(newChecked))
   }
 
   //category lv2
   function handleCategory2({subItem, item}) {
-    const currentIndex1 = Checked1.indexOf(subItem)
+    const currentIndex1 = checked1.indexOf(subItem)
     const newChecked1 = []
     if (currentIndex1 === -1) {
       newChecked1.push(subItem)
-      setSelected1(subItem) 
+      dispatch(actions.setSelected1(subItem))
     }else {
       newChecked1.splice(currentIndex1, 1)
       newChecked1.push(item)
-      setSelected1('')
+      dispatch(actions.setSelected1(''))
     }
-    onClick(newChecked1)
-    setChecked1(newChecked1)
+    
+    //
+    dispatch(actions.setFilter({
+      ...filter,
+      categories_like: newChecked1,
+    }))
+
+    //
+    dispatch(actions.setChecked1(newChecked1))
   }
 
   return (
