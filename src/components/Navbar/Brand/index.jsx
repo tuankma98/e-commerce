@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useStore, actions } from '../../../store'
 
 
 function Brand(props) {
-  const {data, handleBrand} = props
-  const [Checked, setChecked] = useState([])
+  const { data } = props
+  const [ state, dispatch ] = useStore()
+  const { filter, checked_brand } = state
 
   //render
   function renderBrand(data) {
@@ -22,30 +24,32 @@ function Brand(props) {
             type="checkbox" 
             id={`brand-${index}`} 
             value={item} 
-            onChange={handleBrandCheck}/>
-          <label htmlFor={`brand-${index}`}>{item}</label>
+            onChange={handleBrandCheck}
+            />
+          <label 
+            htmlFor={`brand-${index}`}>{item}</label>
         </div>
       )
     }) 
   }
 
   function handleBrandCheck(e) {
-    let values = e.target.value;
-    const currentIndexBrand = Checked.indexOf(values)
-    const newChecked = [...Checked]
+    const { value } = e.target
+
+    const currentIndexBrand = checked_brand.indexOf(value)
+    const newChecked = [...checked_brand]
 
     if (currentIndexBrand === -1) {
-      newChecked.push(values);
+      newChecked.push(value);
     }else {
       newChecked.splice(currentIndexBrand, 1)
     }
-    setChecked(newChecked)
 
-    if (e.target.checked) {
-      handleBrand(newChecked)
-    } else {
-      handleBrand(newChecked)
-    }
+    dispatch(actions.setCheckedBrand(newChecked))
+    dispatch(actions.setFilter({
+      ...filter,
+      brand_like: newChecked
+    }))
   }
 
   return (

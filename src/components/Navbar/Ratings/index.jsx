@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ReactStars from 'react-rating-stars-component'
-
+import { useStore, actions } from '../../../store'
 
 function Ratings(props) {
-  const {data, handleStars} = props
-  const [selected, setSelected] = useState('')
+  const {data} = props
+  const [ state, dispatch ] = useStore()
+  const { filter, selected_ratings } = state
   const [Checked, setChecked] = useState([])
 
   //render
@@ -71,7 +72,7 @@ function Ratings(props) {
             size={14}
           />
           <p 
-          className={selected === item ? 'active' : ''}
+          className={selected_ratings === item ? 'active' : ''}
           >
             &amp; Up {obj[item].star}
           </p>
@@ -83,18 +84,23 @@ function Ratings(props) {
   //
   function handleClickStars(item) {
     const currentIndex = Checked.indexOf(item)
-    const newChecked = []
+    let newChecked = []
 
     if (currentIndex === -1) {
       newChecked.push(item);
-      setSelected(item)
+      dispatch(actions.setSelectedRatings(item))
     }else {
       newChecked.splice(currentIndex, 1)
-      setSelected('')
+      dispatch(actions.setSelectedRatings(''))
+      newChecked = ''
     }
 
     setChecked(newChecked)
-    handleStars(newChecked)
+
+    dispatch(actions.setFilter({
+      ...filter,
+      rating_like: newChecked
+    }))
   }
 
   return (
