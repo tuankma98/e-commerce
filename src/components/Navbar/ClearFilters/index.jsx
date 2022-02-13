@@ -34,8 +34,8 @@ function ClearFilters() {
         categories_like: "",
         price_range_like: "",
         rating_like: "",
-        brand_like: "",
-        type_like: "",
+        brand_like: '',
+        type_like: '',
       })
     )
     dispatch(actions.setSelected(''))
@@ -43,6 +43,9 @@ function ClearFilters() {
     dispatch(actions.setSelectedCategory(''))
     dispatch(actions.setSelectedRatings(''))
     dispatch(actions.setSelectedPrices(''))
+
+    let checkboxList = document.querySelectorAll('.collection__checkbox')
+    checkboxList.forEach(item => item.checked = false)
   }
 
   return (
