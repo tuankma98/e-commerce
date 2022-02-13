@@ -47,6 +47,9 @@ function ClearFilters() {
     dispatch(setSelectedCategory(''))
     dispatch(setSelectedRatings(''))
     dispatch(setSelectedPrices(''))
+
+    let checkboxList = document.querySelectorAll('.collection__checkbox')
+    checkboxList.forEach(item => item.checked = false)
   }
 
   return (

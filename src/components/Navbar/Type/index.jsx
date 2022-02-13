@@ -24,6 +24,7 @@ function Types(props) {
           <input 
             type="checkbox" 
             id={`type-${index}`}
+            className ='collection__checkbox'
             value={item}
             onChange={handleTypeCheck}
           />
@@ -36,12 +37,15 @@ function Types(props) {
   function handleTypeCheck(e) {
     let values = e.target.value;
     const currentIndex = Checked.indexOf(values)
-    const newChecked = [...Checked]
+    let newChecked = [...Checked]
 
     if (currentIndex === -1) {
       newChecked.push(values);
     }else {
       newChecked.splice(currentIndex, 1)
+      if(newChecked.length === 0) {
+        newChecked = ''
+      }
     }
     setChecked(newChecked)
 

@@ -25,7 +25,8 @@ function Brand(props) {
         <div className="category-checkbox" key={index}>
           <input 
             type="checkbox" 
-            id={`brand-${index}`} 
+            id={`brand-${index}`}
+            className = 'collection__checkbox' 
             value={item} 
             onChange={handleBrandCheck}
             />
@@ -40,12 +41,15 @@ function Brand(props) {
     const { value } = e.target
 
     const currentIndexBrand = checked_brand.indexOf(value)
-    const newChecked = [...checked_brand]
+    let newChecked = [...checked_brand]
 
     if (currentIndexBrand === -1) {
       newChecked.push(value);
     }else {
       newChecked.splice(currentIndexBrand, 1)
+      if(newChecked.length === 0) {
+        newChecked = ''
+      }
     }
 
     dispatch(setCheckedBrand(newChecked))
