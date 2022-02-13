@@ -8,10 +8,9 @@ import Sort from './Sort'
 Main.propTypes = {}
 
 function Main(props) {
-  const { onSortChanges } = props
   return (
     <main className="main">
-      <Sort onSortChanges={onSortChanges} />
+      <Sort />
       <PostList />
       <Pagination />
     </main>

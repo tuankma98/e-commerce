@@ -1,11 +1,14 @@
 import React from 'react';
-import { useStore, actions } from '../../../store'
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../../../reducers/filterSlice';
+import { setCheckedBrand } from './brandSlice';
 
 
 function Brand(props) {
   const { data } = props
-  const [ state, dispatch ] = useStore()
-  const { filter, checked_brand } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
+  const checked_brand = useSelector(state => state.brand.checked_brand)
 
   //render
   function renderBrand(data) {
@@ -45,8 +48,8 @@ function Brand(props) {
       newChecked.splice(currentIndexBrand, 1)
     }
 
-    dispatch(actions.setCheckedBrand(newChecked))
-    dispatch(actions.setFilter({
+    dispatch(setCheckedBrand(newChecked))
+    dispatch(setFilter({
       ...filter,
       brand_like: newChecked
     }))

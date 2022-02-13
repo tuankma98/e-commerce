@@ -1,20 +1,19 @@
 import ReactStars from "react-rating-stars-component"
 import React from 'react'
 import './postlist.scss'
-import { useStore } from '../../../store'
+import { useSelector } from "react-redux"
 
 
 PostList.propTypes = {}
 
 
 function PostList(props) {
-  const [ state ] = useStore()
-  const { postList } = state
+  const productList = useSelector(state => state.productList.productList)
 
   return (
     <div>
       <ul className="post-list">
-        {postList.map((post) => (
+        {productList.map((post) => (
           <li className="post-list-item" key={post.objectID}>
             <div className="list-item-image">
               <img src={post.image} alt="img" />
