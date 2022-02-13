@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useStore, actions } from '../../../store'
+import { useDispatch, useSelector } from "react-redux"
+import { setFilter } from '../../../reducers/filterSlice';
 
 function Types(props) {
   const {data} = props
-  const [ state, dispatch ] = useStore()
-  const { filter } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
   const [Checked, setChecked] = useState([])
 
   // render
@@ -45,12 +46,12 @@ function Types(props) {
     setChecked(newChecked)
 
     if (e.target.checked) {
-      dispatch(actions.setFilter({
+      dispatch(setFilter({
         ...filter,
         type_like: newChecked
       }))
     } else {
-      dispatch(actions.setFilter({
+      dispatch(setFilter({
         ...filter,
         type_like: newChecked
       }))

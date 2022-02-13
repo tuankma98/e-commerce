@@ -1,10 +1,16 @@
 import React, { useRef, useState } from 'react'
-import { actions, useStore } from '../../../store'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { setFilter } from '../../../reducers/filterSlice'
+// import { actions, useStore } from '../../../store'
 import './filter.scss'
 
 function Filter(props) {
-  const [ state, dispatch ] = useStore()
-  const { filter } = state
+  const dispatch1 = useDispatch()
+  const filter1 = useSelector(state => state.filter.filter)
+
+  // const [ state, dispatch ] = useStore()
+  // const { filter } = state
   const [searchTerm, setSearchTerm] = useState('')
   const typingTimeoutRef = useRef(null)
 
@@ -21,10 +27,16 @@ function Filter(props) {
         searchTerm: value,
       }
 
-      dispatch(actions.setFilter({
-        ...filter,
-        name_like: formValues.searchTerm,
-      }))
+      const action = setFilter({
+        ...filter1,
+        name_like: formValues.searchTerm
+      })
+      dispatch1(action)
+
+      // dispatch(actions.setFilter({
+      //   ...filter,
+      //   name_like: formValues.searchTerm,
+      // }))
     }, 500)
   }
 

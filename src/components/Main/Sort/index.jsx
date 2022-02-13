@@ -1,26 +1,30 @@
 import React from 'react'
-import { actions, useStore } from '../../../store'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { setFilter } from '../../../reducers/filterSlice'
 import './sort.scss'
 
 function Sort(props) {
-  const [ state, dispatch ] = useStore()
-  const { filter } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
 
   function handleSortChange(e) {
     const value = e.target.value
 
     if (value === 'featured') {
-      dispatch(actions.setFilter({
+      const action = setFilter({
         ...filter,
         _sort: '',
         _order: '',
-      }))
+      })
+      dispatch(action)
     } else {
-      dispatch(actions.setFilter({
+      const action = setFilter({
         ...filter,
         _sort: 'price',
         _order: value,
-      }))
+      })
+      dispatch(action)
     }
   }
 

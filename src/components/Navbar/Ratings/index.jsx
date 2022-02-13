@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from "react-redux"
+import { setFilter } from "../../../reducers/filterSlice"
+import { setSelectedRatings } from './ratingsSlice'
 import ReactStars from 'react-rating-stars-component'
-import { useStore, actions } from '../../../store'
 
 function Ratings(props) {
   const {data} = props
-  const [ state, dispatch ] = useStore()
-  const { filter, selected_ratings } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
+  const selected_ratings = useSelector(state => state.ratings.selected_ratings)
   const [Checked, setChecked] = useState([])
 
   //render
@@ -88,16 +91,16 @@ function Ratings(props) {
 
     if (currentIndex === -1) {
       newChecked.push(item);
-      dispatch(actions.setSelectedRatings(item))
+      dispatch(setSelectedRatings(item))
     }else {
       newChecked.splice(currentIndex, 1)
-      dispatch(actions.setSelectedRatings(''))
+      dispatch(setSelectedRatings(''))
       newChecked = ''
     }
 
     setChecked(newChecked)
 
-    dispatch(actions.setFilter({
+    dispatch(setFilter({
       ...filter,
       rating_like: newChecked
     }))

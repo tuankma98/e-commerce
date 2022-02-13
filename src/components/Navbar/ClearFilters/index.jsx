@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useStore, actions } from "../../../store";
+import { useDispatch, useSelector } from "react-redux"
+import { setFilter } from "../../../reducers/filterSlice";
+import { setSelected, setSelected1, setSelectedCategory } from "../Category/categorySlice";
+import { setSelectedPrices } from "../Prices/pricesSlice";
+import { setSelectedRatings } from "../Ratings/ratingsSlice";
 
 function ClearFilters() {
-  const [state, dispatch] = useStore();
-  const { filter } = state;
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
   const [isClear, setIsClear] = useState(false);
 
   useEffect(() => {
@@ -26,7 +30,7 @@ function ClearFilters() {
   //
   function handleClearFilter() {
     dispatch(
-      actions.setFilter({
+      setFilter({
         ...filter,
         _sort: "",
         _order: "",
@@ -38,11 +42,11 @@ function ClearFilters() {
         type_like: "",
       })
     )
-    dispatch(actions.setSelected(''))
-    dispatch(actions.setSelected1(''))
-    dispatch(actions.setSelectedCategory(''))
-    dispatch(actions.setSelectedRatings(''))
-    dispatch(actions.setSelectedPrices(''))
+    dispatch(setSelected(''))
+    dispatch(setSelected1(''))
+    dispatch(setSelectedCategory(''))
+    dispatch(setSelectedRatings(''))
+    dispatch(setSelectedPrices(''))
   }
 
   return (

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { useStore, actions } from '../../../store'
+import { useDispatch, useSelector } from "react-redux"
+import { setFilter } from '../../../reducers/filterSlice';
+import { setSelectedPrices } from './pricesSlice';
 
 function Prices(props) {
   const { data } = props
-  const [ state, dispatch ] = useStore()
-  const { filter, selected_prices } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
+  const selected_prices = useSelector(state => state.prices.selected_prices)
   const [Checked, setChecked] = useState([])
 
 
@@ -38,16 +41,16 @@ function Prices(props) {
 
     if (currentIndex === -1) {
       newChecked.push(item);
-      dispatch(actions.setSelectedPrices(item))
+      dispatch(setSelectedPrices(item))
     }else {
       newChecked.splice(currentIndex, 1)
-      dispatch(actions.setSelectedPrices(''))
+      dispatch(setSelectedPrices(''))
       newChecked = ''
     }
 
     setChecked(newChecked)
 
-    dispatch(actions.setFilter({
+    dispatch(setFilter({
       ...filter,
       price_range_like: newChecked
     }))

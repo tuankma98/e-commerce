@@ -1,11 +1,14 @@
 import React from 'react'
 import './pagination.scss'
 import ReactPaginate from 'react-paginate'
-import { actions, useStore } from '../../../store'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { setFilter } from '../../../reducers/filterSlice'
 
 function Pagination(props) {
-  const [ state, dispatch ] = useStore()
-  const { filter, pagination } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
+  const pagination = useSelector(state => state.pagination.pagination)
 
   const { _limit, _totalRows } = pagination
   const totalPages = Math.ceil(_totalRows / _limit)
@@ -13,10 +16,11 @@ function Pagination(props) {
   function handlePageChange({selected}) {
     let numbers = selected + 1
 
-    dispatch(actions.setFilter({
+    const action = setFilter({
       ...filter,
-      _page: numbers,
-    }))
+      _page: numbers
+    })
+    dispatch(action)
   }
 
   return (

@@ -1,13 +1,14 @@
 import queryString from 'query-string'
 import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductList } from './reducers/productList'
 import Header from './components/Header'
 import Main from './components/Main'
 import Navbar from './components/Navbar'
-import { actions, useStore } from './store'
 
 function App() {
-  const [ state, dispatch ] = useStore()
-  const { filter } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
 
   // api
   useEffect(() => {
@@ -17,7 +18,7 @@ function App() {
         const requestUrl = `http://localhost:5000/PostList?${paramsString}`
         const res = await fetch(requestUrl)
         const resJSON = await res.json()
-        dispatch(actions.setPostList(resJSON))
+        dispatch(setProductList(resJSON))
       } catch (error) {
         console.log('Failed to fetch post list: ', error.message)
       }

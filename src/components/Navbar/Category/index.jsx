@@ -1,10 +1,13 @@
 import React from "react"
-import { useStore, actions } from '../../../store'
+import { useDispatch, useSelector } from "react-redux"
+import { setFilter } from "../../../reducers/filterSlice"
+import { setSelected, setSelectedCategory, setSelected1, setChecked, setChecked1 } from "./categorySlice"
 
 function Category(props) {
   const { data } = props
-  const [ state, dispatch ] = useStore()
-  const { filter, checked, checked1, selected, selected1, selected_category } = state
+  const dispatch = useDispatch()
+  const filter = useSelector(state => state.filter.filter)
+  const categoryState = useSelector(state => state.category)
 
   // render
   const renderCategory = (data) => {
@@ -54,14 +57,14 @@ function Category(props) {
           <p>
             <span className="category-icon">&rsaquo;</span>
             <span
-          className={selected === item ? 'active' : ''}
+          className={categoryState.selected === item ? 'active' : ''}
             > {item}</span>
           </p>
            
           {categoryObj[item].lv2 && (
             <ul
               className="category_sub-list"
-              style={{ display: selected_category === item ? "block" : "none" }}
+              style={{ display: categoryState.selected_category === item ? "block" : "none" }}
             >
               {categoryObj[item].lv2.map((subItem, subIndex) => {
                 return (
@@ -74,7 +77,7 @@ function Category(props) {
                           e.stopPropagation()
                           handleCategory2({subItem, item})
                         }}
-                        className={selected1 === subItem ? 'active1': ''}
+                        className={categoryState.selected1 === subItem ? 'active1': ''}
                       >
                         {subItem}
                       </span>
@@ -92,52 +95,52 @@ function Category(props) {
 
   // category lv1
   function handleCategory(item) {
-    const currentIndex = checked.indexOf(item)
+    const currentIndex = categoryState.checked.indexOf(item)
     let newChecked = []
 
     if (currentIndex === -1) {
       newChecked.push(item)
-      dispatch(actions.setSelected(item))
-      dispatch(actions.setSelectedCategory(item))
+      dispatch(setSelected(item))
+      dispatch(setSelectedCategory(item))
     } else {
       newChecked.splice(currentIndex, 1)
-      dispatch(actions.setSelectedCategory(newChecked))
-      dispatch(actions.setSelected(''))
-      dispatch(actions.setSelected1(''))
+      dispatch(setSelectedCategory(newChecked))
+      dispatch(setSelected(''))
+      dispatch(setSelected1(''))
       newChecked =''
     }
 
     //
-    dispatch(actions.setFilter({
+    dispatch(setFilter({
       ...filter,
       categories_like: newChecked,
     }))
 
     //
-    dispatch(actions.setChecked(newChecked))
+    dispatch(setChecked(newChecked))
   }
 
   //category lv2
   function handleCategory2({subItem, item}) {
-    const currentIndex1 = checked1.indexOf(subItem)
+    const currentIndex1 = categoryState.checked1.indexOf(subItem)
     const newChecked1 = []
     if (currentIndex1 === -1) {
       newChecked1.push(subItem)
-      dispatch(actions.setSelected1(subItem))
+      dispatch(setSelected1(subItem))
     }else {
       newChecked1.splice(currentIndex1, 1)
       newChecked1.push(item)
-      dispatch(actions.setSelected1(''))
+      dispatch(setSelected1(''))
     }
     
     //
-    dispatch(actions.setFilter({
+    dispatch(setFilter({
       ...filter,
       categories_like: newChecked1,
     }))
 
     //
-    dispatch(actions.setChecked1(newChecked1))
+    dispatch(setChecked1(newChecked1))
   }
 
   return (
