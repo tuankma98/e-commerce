@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../../reducers/filterSlice';
-import { setCheckedBrand } from './brandSlice';
-
 
 function Brand(props) {
   const { data } = props
   const dispatch = useDispatch()
   const filter = useSelector(state => state.filter.filter)
-  const checked_brand = useSelector(state => state.brand.checked_brand)
+  const [checked_brand, setCheckedBrand] = useState([])
 
   //render
   function renderBrand(data) {
@@ -23,11 +21,11 @@ function Brand(props) {
     return brands.map((item, index) =>{
       return (
         <div className="category-checkbox" key={index}>
-          <input 
+          <input
             type="checkbox" 
             id={`brand-${index}`}
             className = 'collection__checkbox' 
-            value={item} 
+            value={item}
             onChange={handleBrandCheck}
             />
           <label 
@@ -39,10 +37,9 @@ function Brand(props) {
 
   function handleBrandCheck(e) {
     const { value } = e.target
-
     const currentIndexBrand = checked_brand.indexOf(value)
     let newChecked = [...checked_brand]
-
+    
     if (currentIndexBrand === -1) {
       newChecked.push(value);
     }else {
@@ -51,8 +48,8 @@ function Brand(props) {
         newChecked = ''
       }
     }
-
-    dispatch(setCheckedBrand(newChecked))
+    
+    setCheckedBrand(newChecked)
     dispatch(setFilter({
       ...filter,
       brand_like: newChecked
