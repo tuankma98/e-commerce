@@ -6,6 +6,7 @@ import './navbar.scss'
 import Prices from './Prices'
 import Ratings from './Ratings'
 import Type from './Type'
+import productListAPI from '../../api/productListAPI'
 
 function Navbar(props) {
   const [data, setData] = useState([])
@@ -14,10 +15,8 @@ function Navbar(props) {
   useEffect(() => {
     async function fetchPostListCategory() {
       try {
-        const requestUrl = 'http://localhost:5000/PostList'
-        const res = await fetch(requestUrl)
-        const resJSON = await res.json()
-        setData(resJSON)
+        const fetchProductAPI = await productListAPI.getAll()
+        setData(fetchProductAPI)
       } catch (error) {
         console.log('Failed to fetch post list: ', error.message)
       }

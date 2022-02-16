@@ -28,37 +28,47 @@ function Ratings(props) {
       ratings.push(item.rating)
     })
 
+    // quantity item star
     ratings.forEach(item => {
-      if(item === 1) {
-        star.star1.push(item)
-        obj[item] = {
-          star: star.star1.length
-        }
-      } else if (item === 2) {
-        star.star2.push(item)
-        obj[item] = {
-          star: star.star2.length
-        }
-      } else if(item === 3) {
-        star.star3.push(item)
-        obj[item] = {
-          star: star.star3.length
-        }
-      } else if(item === 4) {
-        star.star4.push(item)
-        obj[item] = {
-          star: star.star4.length
-        }
-      } else if(item === 5) {
-        star.star5.push(item)
-        obj[item] = {
-          star: star.star5.length
-        }
-      } else if(item === 6) {
-        star.star6.push(item)
-        obj[item] = {
-          star: star.star6.length
-        }
+      switch(item) {
+        case 1:
+          star.star1.push(item)
+          obj[item] = {
+            star: star.star1.length
+          }
+          break
+        case 2: 
+          star.star2.push(item)
+          obj[item] = {
+            star: star.star2.length
+          }
+          break
+        case 3:
+          star.star3.push(item)
+          obj[item] = {
+            star: star.star3.length
+          }
+          break
+        case 4:
+          star.star4.push(item)
+          obj[item] = {
+            star: star.star4.length
+          }
+          break
+        case 5:
+          star.star5.push(item)
+          obj[item] = {
+            star: star.star5.length
+          }
+          break
+        case 6:
+          star.star6.push(item)
+          obj[item] = {
+            star: star.star6.length
+          }
+          break
+        default:
+          console.log('error');
       }
     })
 

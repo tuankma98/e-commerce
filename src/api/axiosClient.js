@@ -11,18 +11,15 @@ const axiosClient = axios.create({
 
 //Interceptors
 // Add a request interceptor
-axios.interceptors.request.use(function (config) {
+axiosClient.interceptors.request.use(function (config) {
   return config;
 }, function (error) {
   return Promise.reject(error);
 });
 
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
-  // if(response && response.data) {
-  //   return response.data
-  // }
-  return response;
+axiosClient.interceptors.response.use(function (response) {
+  return response.data;
 }, function (error) {
   return Promise.reject(error);
 });
