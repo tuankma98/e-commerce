@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../../reducers/filterSlice";
 import { setSelected, setSelected1, setSelectedCategory } from "../Category/categorySlice";
 import { setSelectedPrices } from "../Prices/pricesSlice";

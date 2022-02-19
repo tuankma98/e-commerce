@@ -5,14 +5,14 @@ import { setSelectedRatings } from './ratingsSlice'
 import ReactStars from 'react-rating-stars-component'
 
 function Ratings(props) {
-  const {data} = props
   const dispatch = useDispatch()
   const filter = useSelector(state => state.filter.filter)
+  const productList = useSelector(state => state.productList.productList)
   const selected_ratings = useSelector(state => state.ratings.selected_ratings)
   const [Checked, setChecked] = useState([])
 
   //render
-  function renderRatings(data) {
+  function renderRatings(productList) {
     let ratings = []
     let obj = {}
     let star = {
@@ -24,7 +24,7 @@ function Ratings(props) {
       star6: [],
     }
 
-    data.forEach(item => {
+    productList.forEach(item => {
       ratings.push(item.rating)
     })
 
@@ -120,7 +120,7 @@ function Ratings(props) {
     <div className='facet'>
       <h3 className="facet-title">Ratings</h3>
       <div className='check-rating'>
-        {data && renderRatings(data)}
+        {productList && renderRatings(productList)}
       </div>
     </div>
   );

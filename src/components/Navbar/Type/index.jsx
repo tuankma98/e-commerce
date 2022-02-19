@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux"
 import { setFilter } from '../../../reducers/filterSlice';
 
 function Types(props) {
-  const {data} = props
   const dispatch = useDispatch()
   const filter = useSelector(state => state.filter.filter)
+  const productList = useSelector(state => state.productList.productList)
   const [Checked, setChecked] = useState([])
 
   // render
-  function renderTypes(data) {
+  function renderTypes(productList) {
     let types = []
-    data.forEach(item => {
+    productList.forEach(item => {
       if (types.indexOf(item.type) === -1) {
         types.push(item.type);
       }
@@ -66,7 +66,7 @@ function Types(props) {
     <div className='facet'>
       <h3 className="facet-title">Type</h3>
       <form action="" className='form-checkbox'>
-        {data && renderTypes(data)}
+        {productList && renderTypes(productList)}
       </form>
     </div>
   );

@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../../../reducers/filterSlice';
 
 function Brand(props) {
-  const { data } = props
   const dispatch = useDispatch()
   const filter = useSelector(state => state.filter.filter)
+  const productList = useSelector(state => state.productList.productList)
   const [checked_brand, setCheckedBrand] = useState([])
 
   //render
-  function renderBrand(data) {
+  function renderBrand(productList) {
     let brands = []
-    data.forEach(item => {
+    productList.forEach(item => {
       if (brands.indexOf(item.brand) === -1) {
         brands.push(item.brand);
       }
@@ -60,7 +60,7 @@ function Brand(props) {
     <div className='facet'>
       <h3 className="facet-title">Brand</h3>
       <form action="" className='form-checkbox'>
-        {data && renderBrand(data)}
+        {productList && renderBrand(productList)}
       </form>
     </div>
   );

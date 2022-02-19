@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProductList } from './reducers/productList'
 import Header from './components/Header'
 import Main from './components/Main'
 import Navbar from './components/Navbar'
-import productPageListAPI from './api/productPageListAPI'
+import { productListPageAPI, productListAllAPI } from './reducers/productList'
 
 function App() {
   const dispatch = useDispatch()
@@ -12,16 +11,9 @@ function App() {
 
   // api
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const fetchProductPageAPI = await productPageListAPI.getAll(filter)
-        dispatch(setProductList(fetchProductPageAPI))
-      } catch (error) {
-        console.log('Failed to fetch post list: ', error.message)
-      }
-    }
-    fetchProducts()
-  }, [filter])
+    dispatch(productListAllAPI())
+    dispatch(productListPageAPI(filter))
+  }, [filter, dispatch])
 
   return (
     <div className="app">
@@ -31,5 +23,4 @@ function App() {
     </div>
   )
 }
-
 export default App

@@ -4,17 +4,17 @@ import { setFilter } from "../../../reducers/filterSlice"
 import { setSelected, setSelectedCategory, setSelected1, setChecked, setChecked1 } from "./categorySlice"
 
 function Category(props) {
-  const { data } = props
   const dispatch = useDispatch()
   const filter = useSelector(state => state.filter.filter)
+  const productList = useSelector(state => state.productList.productList)
   const categoryState = useSelector(state => state.category)
 
   // render
-  const renderCategory = (data) => {
+  const renderCategory = (productList) => {
     let category = []
     let categoryObj = {}
 
-    data.forEach((element) => {
+    productList.forEach((element) => {
       category.push(element.categories)
     })
     
@@ -146,7 +146,7 @@ function Category(props) {
   return (
     <section className="facet-wrapper">
       <h3 className="facet-category-title">Show results for</h3>
-      <ul className="category_list">{data && renderCategory(data)}</ul>
+      <ul className="category_list">{productList && renderCategory(productList)}</ul>
     </section>
   )
 }

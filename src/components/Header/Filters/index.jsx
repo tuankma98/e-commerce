@@ -1,16 +1,11 @@
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setFilter } from '../../../reducers/filterSlice'
-// import { actions, useStore } from '../../../store'
 import './filter.scss'
 
 function Filter(props) {
   const dispatch1 = useDispatch()
   const filter1 = useSelector(state => state.filter.filter)
-
-  // const [ state, dispatch ] = useStore()
-  // const { filter } = state
   const [searchTerm, setSearchTerm] = useState('')
   const typingTimeoutRef = useRef(null)
 
